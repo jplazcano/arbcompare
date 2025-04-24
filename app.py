@@ -129,13 +129,18 @@ def compare_arb_files(reference_data, target_data, target_file_name):
         if key not in tgt_keys:
             continue
 
-        ref_val = reference_data[key].strip()
-        tgt_val = target_data[key].strip()
+        ref_val = reference_data[key]
+        tgt_val = target_data[key]
+
+        # Check empty
+        if not isinstance(ref_val, str) or not isinstance(tgt_val, str):
+            continue
+        ref_val = ref_val.strip()
+        tgt_val = tgt_val.strip()
 
         # Check empty
         if not tgt_val:
             empty_translations.append(key)
-        # Check identical
         elif ref_val == tgt_val:
             identical_translations.append(key)
 
